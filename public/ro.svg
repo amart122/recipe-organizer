@@ -1,0 +1,15 @@
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#000" opacity="0.55" rx="1" id="svg_3" height="13.70807" width="12.94325" y="1.23421" x="1.79313" stroke-width="0" fill="#efdede"/>
+  <rect stroke="#000" id="svg_4" height="0.23533" width="0.05883" y="5.76435" x="7.58817" stroke-width="0" fill="#efdede"/>
+  <line opacity="0.41" id="svg_5" y2="6.52918" x2="14.15304" y1="6.52918" x1="2.8227" stroke="#000" fill="none"/>
+  <line opacity="0.41" id="svg_6" y2="8.353" x2="14.09421" y1="8.353" x1="2.76387" stroke="#000" fill="none"/>
+  <line opacity="0.41" id="svg_8" y2="12.1183" x2="14.03538" y1="12.1183" x1="2.70504" stroke="#000" fill="none"/>
+  <line opacity="0.41" id="svg_10" y2="10.29448" x2="14.09421" y1="10.29448" x1="2.76387" stroke="#000" fill="none"/>
+  <line opacity="0.41" id="svg_11" y2="4.82302" x2="14.15304" y1="4.82302" x1="2.8227" stroke="#000" fill="none"/>
+  <line opacity="0.41" stroke="#000" id="svg_12" y2="3.11687" x2="8.97575" y1="3.11687" x1="2.6462" fill="none"/>
+  <text opacity="0.71" font-weight="normal" font-style="normal" transform="matrix(1.15715 0 0 1.70559 3.59116 -0.912905)" stroke="#000" xml:space="preserve" text-anchor="start" font-family="'Montserrat ExtraLight'" font-size="8" id="svg_1" y="7.81545" x="-1.46236" stroke-width="0" fill="#b72121">RO</text>
+ </g>
+</svg>

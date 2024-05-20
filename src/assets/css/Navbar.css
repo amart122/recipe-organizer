@@ -1,0 +1,14 @@
+nav {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0px;
+  margin-bottom: 30px;
+}
+
+nav a {
+  font-size: 24px;
+}
+
+nav button {
+  font-size: 14px;
+  padding: 0;
+}

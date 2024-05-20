@@ -1,0 +1,16 @@
+.main-home {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: top;
+}
+
+.main-home > div:nth-child(1) {
+  width: 10%;
+  padding-right: 5%;
+}
+
+.main-home > div:nth-child(2) {
+  width: 85%;
+  border-left: 1px solid #eaeaea;
+}
