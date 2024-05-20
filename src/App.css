@@ -12,3 +12,46 @@ body, .main-container {
 .main-container {
   position: relative;
 }
+
+/* PicoCSS Overrides */
+/* 
+[data-theme=light], :root:not([data-theme=dark]) {
+  --pico-color: #404040 !important;
+  --pico-primary:  !important;
+  --pico-primary-hover-border: #404040 !important;
+  --pico-primary-background: transparent !important;
+  --pico-primary-hover: #404040 !important;
+  --pico-primary-border: #404040 !important;
+  --pico-primary-hover-background: #404040 !important;
+  --checkbox-color: #404040 !important;
+}
+
+[role=button], [type=button], [type=file]::file-selector-button, [type=reset], [type=submit], button {
+  --pico-background-color: var(--pico-primary-background) !important;
+  --pico-border-color: var(--pico-primary-border) !important;
+  --pico-color: var(--pico-color) !important;
+  --pico-box-shadow: var(--pico-button-box-shadow, 0 0 0 rgba(0, 0, 0, 0)) !important;
+}
+
+[type=checkbox]:checked, [type=checkbox]:checked:active, [type=checkbox]:checked:focus, [type=radio]:checked, [type=radio]:checked:active, [type=radio]:checked:focus {
+  --pico-background-color: var(--checkbox-color) !important;
+  --pico-border-color: var(--pico-primary-border) !important;
+} */
+
+[data-theme=light], :root:not([data-theme=dark]) {
+  --pico-primary: #404040 !important;
+  --pico-primary-hover: #29273f !important;
+  --pico-primary-background: var(--pico-primary) !important;
+  --pico-primary-hover-background: #29273f !important;
+  --pico-primary-hover-border: #000 !important;
+  --pico-primary-inverse: #f0f0f0 !important;
+}
+
+[data-theme=dark], :root:not([data-theme=light]) {
+  --pico-primary: #f0f0f0 !important;
+  --pico-primary-hover: #f0f0f0 !important;
+  --pico-primary-background: #f0f0f0 !important;
+  --pico-primary-hover-background: #adabab !important;
+  --pico-primary-inverse: #404040 !important;
+  --pico-primary-hover-border: #404040 !important;
+}
