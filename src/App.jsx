@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
+import { ModalProvider } from './modules/ModalContext';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -21,13 +22,15 @@ function App() {
 
   return (
     <RecipeProvider>
-      <main className='main-container container'>
-        <Navbar toggleTheme={toggleTheme}/>
+      <ModalProvider>
+        <main className='main-container container'>
+          <Navbar toggleTheme={toggleTheme}/>
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-        </Routes>
-      </main>
+          <Routes>
+            <Route path='/' element={<Home />} />
+          </Routes>
+        </main>
+      </ModalProvider>
     </RecipeProvider>
   )
 }
