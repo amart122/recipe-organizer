@@ -1,0 +1,40 @@
+#SideBarFilter {
+  width: 30vw;
+  height: 100%;
+  font-size: 16px;
+}
+
+#sideBarFilter .category {
+display: flex;
+flex-direction: row;
+}
+
+#SideBarFilter .category legend {
+font-weight: bold;
+}
+
+#SideBarFilter .category label {
+font-size: 0.7em;
+}
+
+#SideBarFilter fieldset {
+border: 1px solid #ccc;
+margin-bottom: 1em;
+padding: 10px;
+font-size: 0.8em;
+}
+
+#SideBarFilter fieldset.collapsed {
+padding: 10px;
+}
+
+#SideBarFilter fieldset legend:after {
+content: '\002B';
+font-weight: bold;
+float: right;
+margin-left: 5px;
+}
+
+#SideBarFilter fieldset.collapsed legend:after {
+content: "\2212";
+}
