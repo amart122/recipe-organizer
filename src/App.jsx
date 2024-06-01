@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import { RecipeProvider } from './modules/RecipesContext.jsx';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -19,13 +20,15 @@ function App() {
   }
 
   return (
-    <main className='main-container container'>
-      <Navbar toggleTheme={toggleTheme}/>
+    <RecipeProvider>
+      <main className='main-container container'>
+        <Navbar toggleTheme={toggleTheme}/>
 
-      <Routes>
-        <Route path='/' element={<Home />} />
-      </Routes>
-    </main>
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </main>
+    </RecipeProvider>
   )
 }
 
