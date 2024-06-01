@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
+import ModalContainer from './components/ModalContainer';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -29,6 +30,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
           </Routes>
+
+          <ModalContainer />
         </main>
       </ModalProvider>
     </RecipeProvider>

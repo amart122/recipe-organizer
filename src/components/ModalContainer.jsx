@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import '../assets/css/ModalContainer.css';
 import { ModalContext } from '../modules/ModalContext';
-import ImportModal from './ImportModal';
 import RecipeFormModal from './RecipeFormModal';
 
 function ModalContainer() {
