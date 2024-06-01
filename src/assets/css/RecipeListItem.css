@@ -1,0 +1,71 @@
+.recipe-list-item {
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 170px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(216, 217, 229, 0.549);
+  padding: 0px;
+}
+
+.recipe-list-item a {
+  text-decoration: none;
+}
+
+.list-item-content {
+  padding: 12px;
+}
+
+.list-item-content header {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.list-item-content footer {
+  width: 20ch;
+  font-size: 0.9em;
+}
+
+.item-icons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.icon {
+  font-size: 0.8rem;
+  margin: 0.5rem 0px;
+  width: 33%;
+  font-size: 0.7em;
+}
+
+.icon .clock:before {
+  content: "\1F55C";
+  margin-right: 3px;
+}
+
+.icon .utensils:before {
+  content: "\1F374";
+  margin-right: 3px;
+}
+
+.icon .list:before {
+  content: "\1F4CB";
+  margin-right: 3px;
+}
+
+[data-tooltip]:before {
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+}
+
+[data-tooltip]:after {
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+}

@@ -1,0 +1,17 @@
+#recipe-list.grid-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+#recipe-list article {
+  max-height: 10rem;
+}
+
+#recipe-list a {
+  display: block;
+}
+
+#recipe-list img {
+  max-height: 100px;
+}
