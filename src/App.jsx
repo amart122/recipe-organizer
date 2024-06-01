@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Recipe from './pages/Recipe';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
 import ModalContainer from './components/ModalContainer';
@@ -29,6 +30,7 @@ function App() {
 
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/recipe/:id' element={<Recipe />} />
           </Routes>
 
           <ModalContainer />
