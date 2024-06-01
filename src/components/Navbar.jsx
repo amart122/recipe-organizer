@@ -10,6 +10,19 @@ function NavBar({ toggleTheme }) {
     setModal({showModal: true, currentModal: 'new-recipe'});
   }
 
+  const handleExportClick = () => {
+    const recipes = JSON.parse(localStorage.getItem('recipes'));
+    const ingredients = JSON.parse(localStorage.getItem('ingredients'));
+    const data = JSON.stringify({ recipes, ingredients });
+    const blob = new Blob([data], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'recipes.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <nav>
       <ul>
@@ -23,6 +36,9 @@ function NavBar({ toggleTheme }) {
         </li>
         <li>
           <button onClick={handleNewRecipeClick}>New Recipe</button>
+        </li>
+        <li>
+          <button onClick={handleExportClick}>Export Recipes</button>
         </li>
       </ul>
     </nav>
