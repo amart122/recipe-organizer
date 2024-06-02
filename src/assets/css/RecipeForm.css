@@ -3,11 +3,16 @@ ol li.grid {
   grid-gap: 2%;
 }
 
-.delete-instruction {
+.delete-instruction, .delete-ingredient {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
-li.grid:hover .delete-instruction {
+li.grid:hover .delete-instruction,
+li.grid:hover .delete-ingredient {
   opacity: 1;
+}
+
+.ingredient-list li {
+  grid-template-columns: auto 20% 20% 8%;
 }

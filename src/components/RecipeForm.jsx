@@ -111,6 +111,12 @@ function RecipeForm({ recipe }) {
     setModal({ showModal: false, currentModal: null })
   }
 
+  const handleDeleteIngredient = (e) => {
+    const ingredientId = parseInt(e.target.getAttribute('data-ingredient-id'));
+    const _recipeIngrediets = recipeIngrediets.filter(ingredient => ingredient.id !== ingredientId);
+    setRecipeIngrediets(_recipeIngrediets);
+  }
+
   const handeDeleteInstruction = (e) => {
     const index = parseInt(e.target.getAttribute('data-index'));
     const _instructions = instructions.filter((_, i) => i !== index);
@@ -134,7 +140,7 @@ function RecipeForm({ recipe }) {
           ))}
         </select>
         {newIngredientSelect && <NewIngredientInput handleNewIngredientClick={handleNewIngredientClick} showInput={newIngredientSelect}/>}
-        <ul>
+        <ul className="ingredient-list">
           {recipeIngrediets.map(ingredient => (
             <li key={ingredient.id} className='grid'>
               <span>{ingredients.find(_ingredient => _ingredient.id === ingredient.id)?.name}</span>
@@ -146,6 +152,7 @@ function RecipeForm({ recipe }) {
                 <label htmlFor="unit">Unit:</label>
                 <input type="text" id="unit" name="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})} />
               </div>
+              <button type="button" className='secondary delete-ingredient' data-ingredient-id={ingredient.id} onClick={handleDeleteIngredient}>x</button>
             </li>
           ))}
         </ul>
