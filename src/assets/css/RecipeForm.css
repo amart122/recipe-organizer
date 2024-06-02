@@ -1,0 +1,13 @@
+ol li.grid {
+  grid-template-columns: 90% 8%;
+  grid-gap: 2%;
+}
+
+.delete-instruction {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+li.grid:hover .delete-instruction {
+  opacity: 1;
+}

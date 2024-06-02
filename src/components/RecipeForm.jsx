@@ -1,3 +1,4 @@
+import "../assets/css/RecipeForm.css";
 import React, { useState, useContext } from 'react';
 import { addNewRecipe, addNewIngredient, updateRecipe } from '../modules/LocalStorageUtils';
 import useLoadIngredients from '../hooks/useLoadIngredients';
@@ -110,6 +111,12 @@ function RecipeForm({ recipe }) {
     setModal({ showModal: false, currentModal: null })
   }
 
+  const handeDeleteInstruction = (e) => {
+    const index = parseInt(e.target.getAttribute('data-index'));
+    const _instructions = instructions.filter((_, i) => i !== index);
+    setInstructions(_instructions);
+  }
+
   return (
     <form onSubmit={handleSubmit} id="new-recipe-form">
       <div>
@@ -152,13 +159,14 @@ function RecipeForm({ recipe }) {
       <div>
         <h4>Instructions</h4>
         <fieldset role="group">
-          <input type="text" id="new-step" name="new-step" />
+          <textarea id="new-step" name="new-step"/>
           <button type="button" onClick={confirmNewStep}>Add Step</button>
         </fieldset>
         <ol>
           {instructions.map((instruction, index) => (
             <li key={index} className='grid'>
-              <p>{index+1}. {instruction}</p>
+              <p>{index+1}. {instruction} </p>
+              <button type="button" className='secondary delete-instruction' data-index={index} onClick={handeDeleteInstruction}>x</button>
             </li>
           ))}
         </ol>
