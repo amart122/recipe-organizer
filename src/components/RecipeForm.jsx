@@ -5,6 +5,7 @@ import useLoadIngredients from '../hooks/useLoadIngredients';
 import NewIngredientInput from './NewIngredientInput';
 import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
+import { unitsToDisplay } from '../modules/UnitConverter';
 
 function RecipeForm({ recipe }) {
   const [ingredients, setIngredients] = useLoadIngredients();
@@ -125,11 +126,14 @@ function RecipeForm({ recipe }) {
 
   return (
     <form onSubmit={handleSubmit} id="new-recipe-form">
+
+      {/* Name */}
       <div>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" value={name} onChange={({target}) => setName(target.value)} />
       </div>
 
+      {/* Ingredients */}
       <div>
         <label htmlFor="ingredients">Ingredients:</label>
         <select id="ingredient-select" name="ingredient-select" value={-1} onChange={handleSelectChange} >
@@ -139,7 +143,9 @@ function RecipeForm({ recipe }) {
             <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
           ))}
         </select>
-        {newIngredientSelect && <NewIngredientInput handleNewIngredientClick={handleNewIngredientClick} showInput={newIngredientSelect}/>}
+        
+        {newIngredientSelect && <NewIngredientInput handleNewIngredientClick={handleNewIngredientClick} hideInput={() => setNewIngredientSelect(false)}/>}
+        
         <ul className="ingredient-list">
           {recipeIngrediets.map(ingredient => (
             <li key={ingredient.id} className='grid'>
@@ -150,7 +156,11 @@ function RecipeForm({ recipe }) {
               </div>
               <div>
                 <label htmlFor="unit">Unit:</label>
-                <input type="text" id="unit" name="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})} />
+                <select name="unit" id="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})}>
+                  {Object.entries(unitsToDisplay).map(unit => (
+                    <option key={unit[0]} value={unit[0]}>{unit[1]}</option> 
+                  ))}
+                </select>
               </div>
               <button type="button" className='secondary delete-ingredient' data-ingredient-id={ingredient.id} onClick={handleDeleteIngredient}>x</button>
             </li>
@@ -158,18 +168,20 @@ function RecipeForm({ recipe }) {
         </ul>
       </div>
 
+      {/* Description */}
       <div>
         <label htmlFor="description">Description:</label>
         <textarea id="description" name="description" value={description} onChange={({target}) => setDescription(target.value)} />
       </div>
 
-      <div>
+      {/* Instructions */}
+      <div className="instructions">
         <h4>Instructions</h4>
         <fieldset role="group">
           <textarea id="new-step" name="new-step"/>
           <button type="button" onClick={confirmNewStep}>Add Step</button>
         </fieldset>
-        <ol>
+        <ol className="instruction-list">
           {instructions.map((instruction, index) => (
             <li key={index} className='grid'>
               <p>{index+1}. {instruction} </p>
@@ -179,16 +191,19 @@ function RecipeForm({ recipe }) {
         </ol>
       </div>
 
+      {/* Prep Time */}
       <div>
         <label htmlFor="preptime">Prep Time (in minutes):</label>
         <input type="text" id="preptime" name="preptime" value={preptime} onChange={({target}) => setPreptime(target.value)} />
       </div>
 
+      {/* Serving Size */}
       <div>
         <label htmlFor="serving-size">Serving Size (no. of people):</label>
         <input type="text" id="serving-size" name="serving-size" value={servingSize} onChange={({target}) => setServingSize(target.value)} />
       </div>
 
+      {/* Meal Type */}
       <div>
         <label htmlFor="mealType">Meal Type:</label>
         <select id="mealType" name="mealType" value={mealType || -1} onChange={({target}) => setMealType(target.value)} >
@@ -200,6 +215,7 @@ function RecipeForm({ recipe }) {
         </select>
       </div>
 
+      {/* Notes */}
       <div>
         <label htmlFor="notes">Notes:</label>
         <textarea id="notes" name="notes" value={notes} onChange={({target}) => setNotes(target.value)} />
@@ -207,6 +223,7 @@ function RecipeForm({ recipe }) {
 
       <br />
 
+      {/* Buttons */}
       <div>
         {recipe && <button type="button" onClick={handleRecipeUpdate}>Update Recipe</button>}
         {!recipe && <button type="submit">Add Recipe</button>}

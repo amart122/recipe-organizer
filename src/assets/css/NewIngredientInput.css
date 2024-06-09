@@ -1,0 +1,14 @@
+.new-ingredient-container {
+  border: 1px solid #ADADAD;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.new-ingredient-container button {
+  margin-bottom: 0px;
+}
+
+.new-ingredient-container button:not(:first-of-type) {
+  margin-left: 10px;
+}

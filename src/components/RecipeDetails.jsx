@@ -6,6 +6,7 @@ import useLoadIngredients from '../hooks/useLoadIngredients';
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from '../modules/ModalContext';
 import { preptimeFormatCard } from '../helpers/RecipeHelper.js'
+import { unitsToDisplay } from '../modules/UnitConverter';
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useLoadRecipe(recipeId);
@@ -50,7 +51,9 @@ const RecipeDetails = ({ recipeId }) => {
         {recipe.ingredients.map((ingredient, index) => {
           return (
             <div key={ index }>
-              <p>{ recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name } - { ingredient.quantity } {ingredient.unit}</p>
+              <p>
+                { ingredient.quantity } {unitsToDisplay[ingredient.unit] + (ingredient.quantity > 1 ? "s" : null)} - { recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name }
+              </p>
             </div>
           );
         })}

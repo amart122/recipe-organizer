@@ -3,6 +3,10 @@ ol li.grid {
   grid-gap: 2%;
 }
 
+.delete-ingredient {
+  height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 2 + var(--pico-border-width) * 2);
+}
+
 .delete-instruction, .delete-ingredient {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
@@ -15,4 +19,19 @@ li.grid:hover .delete-ingredient {
 
 .ingredient-list li {
   grid-template-columns: auto 20% 20% 8%;
+  align-items: end;
+}
+
+.ingredient-list li span{
+  align-self: start;
+  margin: auto 0;
+  font-weight: bold;
+}
+
+.ingredient-list li:hover span{
+  text-decoration: underline;
+}
+
+form .instruction-list {
+  margin: 20px 0px;
 }
