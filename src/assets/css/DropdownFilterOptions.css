@@ -8,7 +8,7 @@ fieldset legend {
 fieldset .options {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s;
+  transition: all 0.5s;
 }
 
 fieldset .options > div {
@@ -16,14 +16,15 @@ fieldset .options > div {
 }
 
 fieldset .options input {
-  height: 0.9em;
-  max-height: 0.9em;
-  min-height: 0.9em;
-  width: 0.9em;
-  max-width: 0.9em;
-  min-width: 0.9em;
+  height: 1em;
+  max-height: 1em;
+  min-height: 1em;
+  width: 1em;
+  max-width: 1em;
+  min-width: 1em;
 }
 
 fieldset.collapsed .options {
   max-height: 250px;
+  padding-top: 3px;
 }
