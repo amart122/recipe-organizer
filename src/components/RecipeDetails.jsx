@@ -1,9 +1,11 @@
+import "../assets/css/RecipeDetails.css"
 import React, { useContext } from 'react';
 import { useLoadRecipe } from '../hooks/useLoadRecipes';
 import { deleteRecipe } from '../modules/LocalStorageUtils';
 import useLoadIngredients from '../hooks/useLoadIngredients';
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from '../modules/ModalContext';
+import { preptimeFormatCard } from '../helpers/RecipeHelper.js'
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useLoadRecipe(recipeId);
@@ -31,19 +33,30 @@ const RecipeDetails = ({ recipeId }) => {
 
   return (
     <article className='recipe'>
-      <h2>{ recipe.name }</h2>
+      <h1>{ recipe.name }</h1>
+      <div className='information'>
+        <div className='icon'>
+          <div className="clock">{preptimeFormatCard(recipe.preptime)}</div>
+        </div>
+        <div className='icon'>
+          <div className="utensils">{(recipe.servingSize ? recipe.servingSize + " serving" + (parseInt(recipe.servingSize) > 1 ? "s" : "") : "N/A")}</div>
+        </div>
+        <div className='icon'>
+          <div className="list">{recipe.ingredients.length + " items"}</div>
+        </div>
+      </div>
       <div className='ingredient-list'>
-        <h3>Ingredients:</h3>
+        <h4>Ingredients:</h4>
         {recipe.ingredients.map((ingredient, index) => {
           return (
             <div key={ index }>
-              <p>{ recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name } - { ingredient.quantity }</p>
+              <p>{ recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name } - { ingredient.quantity } {ingredient.unit}</p>
             </div>
           );
         })}
       </div>
       <div className='instructions'>
-        <h3>Instructions:</h3>
+        <h4>Instructions:</h4>
         {recipe.instructions.map((instruction, index) => {
           return (
             <div key={ index }>
@@ -52,8 +65,10 @@ const RecipeDetails = ({ recipeId }) => {
           );
         })}
       </div>
-      <button onClick={ openEditModal } >Edit</button>
-      <button onClick={ openConfirmDeletion } >Delete</button>
+      <div className="btn-container">
+        <button className="secondary" onClick={ openEditModal } >Edit</button>
+        <button className="secondary red" onClick={ openConfirmDeletion } >Delete</button>
+      </div>
     </article>
   );
 }

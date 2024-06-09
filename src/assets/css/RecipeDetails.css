@@ -1,0 +1,27 @@
+.recipe .information {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--pico-primary);
+}
+
+.information .icon {
+  min-width: 50px;
+  max-width: 150px;
+}
+
+.ingredient-list {
+  margin-bottom: 35px;
+}
+
+.recipe h4 {
+  text-decoration: underline;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
