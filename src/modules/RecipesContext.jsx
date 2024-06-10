@@ -52,8 +52,31 @@ export const RecipeProvider = ({ children }) => {
     return [..._filteredRecipes];
   };
 
+  const sortRecipes = (sort) => {
+    let _sortedRecipes = [...filteredRecipes];
+    const _ascending = sort.substr(0,1) === '+';
+    const _sort = sort.substr(1);
+
+    if(_sortedRecipes.length === 0) return;
+
+    if(_sort === "name") {
+      _sortedRecipes = filteredRecipes.sort((a, b) => a[_sort].toLowerCase().localeCompare(b[_sort].toLowerCase()));
+    } else if(_sort === "ingredient") {
+      _sortedRecipes = filteredRecipes.sort((a, b) => parseInt(a["ingredients"].length) - parseInt(b["ingredients"].length));
+    } else {
+      _sortedRecipes = filteredRecipes.sort((a, b) => parseInt(a[_sort]) - parseInt(b[_sort]));
+    }
+
+    if(!_ascending) {
+      _sortedRecipes = [..._sortedRecipes.reverse()];
+    }
+
+    setFilteredRecipes([..._sortedRecipes]);
+    return [..._sortedRecipes]
+  }
+
   return (
-    <RecipeContext.Provider value={{ recipes, filteredRecipes, addRecipe, removeRecipe, filterRecipes, currentFilter }}>
+    <RecipeContext.Provider value={{ recipes, filteredRecipes, sortRecipes, addRecipe, removeRecipe, filterRecipes, currentFilter }}>
       {children}
     </RecipeContext.Provider>
   );

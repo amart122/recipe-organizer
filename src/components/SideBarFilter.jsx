@@ -4,7 +4,7 @@ import { RecipeContext } from '../modules/RecipesContext.jsx';
 import DropdownFilterOptions from './DropdownFilterOptions';
 
 function SideBarFilter({ ingredients }) {
-  const { currentFilter, filterRecipes } = useContext(RecipeContext);
+  const { currentFilter, filterRecipes, sortRecipes } = useContext(RecipeContext);
   const prevFilter = useRef(currentFilter);
 
   const handleFilterChange = (e, group) => {
@@ -32,12 +32,18 @@ function SideBarFilter({ ingredients }) {
     filterRecipes(_filter);
   }
 
+  const handleSortChange = (e) => {
+    prevFilter.current = { ...currentFilter, sortBy: e.target.value };
+    sortRecipes(e.target.value);
+  }
+
   return (
     <div id="SideBarFilter">
-      <h2>Filters</h2>
       <span>{prevFilter.current.value}</span>
-      <form>
+      <div>
+        <h4>Search</h4>
         <input type="search" id="search" name="search" onChange={e => handleFilterChange(e, "text")} />
+        
         <h4>Categories</h4>
         <DropdownFilterOptions
           option={{
@@ -80,7 +86,28 @@ function SideBarFilter({ ingredients }) {
           }}
           handleFilterChange={handleFilterChange}
         />
-      </form>
+
+        <hr />
+
+        <DropdownFilterOptions
+          option={{
+            title: "Sort By",
+            options: [
+              {id: "ascName", name: "Name ↓", value: "+name"},
+              {id: "descName", name: "Name ↑", value: "-name"},
+              {id: "ascPreptime", name: "Prep Time ↓", value: "+preptime"},
+              {id: "descPreptime", name: "Prep Time ↑", value: "-preptime"},
+              {id: "ascIngredientCount", name: "Ingredient no. ↓", value: "+ingredient"},
+              {id: "descIngredientCount", name: "Ingredient no. ↑", value: "-ingredient"},
+            ],
+            checked: prevFilter.current.sortBy || "",
+            group: "sortBy",
+            radio: true
+          }}
+          handleFilterChange={handleSortChange}
+        />
+
+      </div>
     </div>
   );
 }
