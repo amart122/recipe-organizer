@@ -8,8 +8,6 @@ function RecipesContainer() {
 
   return (
     <div id="recipes-container" className='container-fluid'>
-      <h1>Recipes</h1>
-
       <div id="recipe-list" className="grid-display" >
         {filteredRecipes.length === 0 && <p>No recipes yet!</p>}
         {filteredRecipes.length !== 0 && filteredRecipes.map((recipe) => (

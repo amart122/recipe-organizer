@@ -68,6 +68,12 @@ const RecipeDetails = ({ recipeId }) => {
           );
         })}
       </div>
+      
+      <div className={"notes " + (!recipe.notes ? "hidden" : "" )}>
+        <h4>Notes:</h4>
+        <p>{recipe.notes}</p>
+      </div>
+
       <div className="btn-container">
         <button className="secondary" onClick={ openEditModal } >Edit</button>
         <button className="secondary red" onClick={ openConfirmDeletion } >Delete</button>

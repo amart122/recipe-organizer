@@ -13,6 +13,10 @@ body, .main-container {
   position: relative;
 }
 
+.hidden {
+  display: none;
+}
+
 /* PicoCSS Overrides */
 [data-theme=light], :root:not([data-theme=dark]) {
   --pico-primary: #404040 !important;
