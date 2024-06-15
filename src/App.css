@@ -2,6 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --w: 7vw;
+	--h: calc(var(--w) / 2);
+	--br: calc(var(--w) / 1);
+  --size: calc(var(--w) / 3);
+	--offset: calc(var(--w) / 12);
+  --focus: #002a2a;
 }
 
 body, .main-container {
@@ -19,7 +25,7 @@ body, .main-container {
 
 /* PicoCSS Overrides */
 [data-theme=light], :root:not([data-theme=dark]) {
-  --pico-primary: #404040 !important;
+  --pico-primary: #111111 !important;
   --pico-primary-hover: #29273f !important;
   --pico-primary-background: var(--pico-primary) !important;
   --pico-primary-hover-background: #29273f !important;
@@ -30,13 +36,21 @@ body, .main-container {
 [data-theme=dark], :root:not([data-theme=light]) {
   --pico-primary: #f0f0f0 !important;
   --pico-primary-hover: #f0f0f0 !important;
-  --pico-primary-background: #f0f0f0 !important;
+  --pico-background-color: #111111 !important;
+  --pico-card-background-color: #111111 !important;
+  --pico-form-element-background-color: #111111 !important;
+  --pico-primary-background: var(--pico-primary) !important;
   --pico-primary-hover-background: #adabab !important;
-  --pico-primary-inverse: #404040 !important;
-  --pico-primary-hover-border: #404040 !important;
+  --pico-primary-inverse: #111111 !important;
+  --pico-primary-hover-border: #111111 !important;
 }
 
 [data-theme=dark], [data-theme=light] {
   --pico-line-height: 1 !important;
   --pico-form-element-spacing-vertical: 0.5rem !important;
+}
+
+nav li [role=button], nav li [type=button], nav li button, nav li input:not([type=checkbox],[type=radio],[type=range],[type=file]), nav li select {
+  height: var(--h) !important;
+  min-height: 30px !important;
 }

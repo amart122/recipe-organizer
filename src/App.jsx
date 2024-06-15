@@ -26,7 +26,7 @@ function App() {
     <RecipeProvider>
       <ModalProvider>
         <main className='main-container container'>
-          <Navbar toggleTheme={toggleTheme}/>
+          <Navbar toggleTheme={toggleTheme} theme={theme} />
 
           <Routes>
             <Route path='/' element={<Home />} />

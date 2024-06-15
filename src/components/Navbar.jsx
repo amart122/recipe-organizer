@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ModalContext } from '../modules/ModalContext';
 
-function NavBar({ toggleTheme }) {
+function NavBar({ toggleTheme, theme }) {
   const { setModal } = useContext(ModalContext);
 
   const handleNewRecipeClick = () => {
@@ -32,7 +32,8 @@ function NavBar({ toggleTheme }) {
       </ul>
       <ul>
         <li>
-          <button onClick={toggleTheme}>Toggle Theme</button>
+          <input type="checkbox" id="theme-toggle" onChange={toggleTheme} checked={theme === 'dark'} title="Toggle Theme"/>
+          <label htmlFor="theme-toggle"></label>
         </li>
         <li>
           <button onClick={handleNewRecipeClick}>New Recipe</button>

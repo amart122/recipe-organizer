@@ -12,3 +12,71 @@ nav button {
   font-size: 14px;
   padding: 0;
 }
+
+#theme-toggle {
+	position: absolute;
+  opacity: 0;
+}
+
+#theme-toggle:active + label {
+  transform: scale(1.05);
+}
+
+#theme-toggle + label {
+  outline: 2px solid transparent;
+  transform: scale(1,1);
+  transition: outline .25s ease, transform .15s ease;	
+	position: relative;
+	background: var(--pico-primary);
+	display: block;
+	width: var(--w);
+	height: var(--h);
+	border-radius: var(--br);
+	cursor: pointer;
+	text-indent: 200vw;
+	overflow: hidden;
+}
+
+#theme-toggle + label::before,
+#theme-toggle + label::after {
+  content: '';
+  position: absolute;
+}
+
+#theme-toggle + label::before {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: var(--pico-primary-inverse);
+  left: 0px;
+  top: 50%;
+  transform: translate(var(--offset) , -50%);
+  z-index: 1;
+}
+
+#theme-toggle + label::after {
+  width: var(--size);
+  height: var(--size);
+  left: 0;
+  top: 50%;
+  background: var(--pico-primary);
+  transform: translate(-100%, -50%) scale(1);
+  transform-origin: left;
+  border-radius: 50%;
+  transition: transform .35s ease;
+}
+
+#theme-toggle:checked + label::before {
+  left: 50%;
+  background: var(--pico-primary-inverse);
+}
+
+#theme-toggle:checked + label::after {
+  transform: translate(-100%, -50%) scale(5);
+  background: var(--pico-primary);
+}
+
+#theme-toggle:active + label {
+  transform: scale(1.05);
+}
+
