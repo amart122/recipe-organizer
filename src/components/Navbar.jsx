@@ -10,6 +10,10 @@ function NavBar({ toggleTheme, theme }) {
     setModal({showModal: true, currentModal: 'new-recipe'});
   }
 
+  const handleImportClick = () => {
+    setModal({showModal: true, currentModal: 'import'});
+  }
+
   const handleExportClick = () => {
     const recipes = JSON.parse(localStorage.getItem('recipes'));
     const ingredients = JSON.parse(localStorage.getItem('ingredients'));
@@ -37,6 +41,9 @@ function NavBar({ toggleTheme, theme }) {
         </li>
         <li>
           <button onClick={handleNewRecipeClick}>New Recipe</button>
+        </li>
+        <li>
+          <button onClick={handleImportClick}>Import Recipe</button>
         </li>
         <li>
           <button onClick={handleExportClick}>Export Recipes</button>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import '../assets/css/ModalContainer.css';
 import { ModalContext } from '../modules/ModalContext';
 import RecipeFormModal from './RecipeFormModal';
+import ImportModal from './ImportModal';
 
 function ModalContainer() {
   const { modal, setModal } = useContext(ModalContext);
