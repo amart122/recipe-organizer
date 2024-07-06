@@ -1,3 +1,5 @@
+import { unitsToAbbreviation } from './UnitConverter';
+
 export const addNewRecipe = (newRecipe) => {
   const { errors, recipe } = validateAndTranformRecipe(newRecipe);
   if (errors.length) { return { errors } }
@@ -33,12 +35,56 @@ export const updateRecipe = (updatedRecipe) => {
 
   const allRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
   const newRecipes = allRecipes.filter(_recipe => _recipe.id !== recipe.id);
-  // let oldRecipe = allRecipes.find(_recipe => _recipe.id === recipe.id)
-  // oldRecipe = {...oldRecipe, ...recipe}
   newRecipes.push(recipe)
   
   localStorage.setItem('recipes', JSON.stringify(newRecipes));
   return '';
+}
+
+export const tranformImportedRecipe = (recipe) => {
+  const allIngredients = JSON.parse(localStorage.getItem('ingredients')) || [];
+  const newIngredients = []
+  // Create a map of ingredients by name
+  const ingredientsByName = {}
+  allIngredients.forEach( (ingredient) => ingredientsByName[ingredient.name] = ingredient.id );
+
+  // Update ingredients
+  recipe.ingredients = recipe.ingredients.map( (ingredient) => {
+    // Replace any existing ingredient with local ingredient ID
+    if(ingredientsByName[ingredient.name]) {
+      ingredient.id = ingredientsByName[ingredient.name];
+    } else {
+      newIngredients.push(ingredient)
+    }
+
+    // Modify ingredients unit to match abbreviation
+    if(unitsToAbbreviation[ingredient.unit.toLowerCase()]) {
+      ingredient.unit = unitsToAbbreviation[ingredient.unit.toLowerCase()];
+    }
+
+    return ingredient
+  })
+
+  // Remove empty instruction lines
+  recipe.instructions = recipe.instructions.filter(instruction => instruction.length > 0)
+  
+  return [recipe, newIngredients];
+}
+
+export const addImportedRecipe = (recipe, ingredients) => {
+  try {
+    const allIngredients = JSON.parse(localStorage.getItem('ingredients')) || [];
+    const newIngredients = allIngredients.concat(ingredients);
+    localStorage.setItem('ingredients', JSON.stringify(newIngredients));
+
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    recipes.push(recipe);
+    localStorage.setItem('recipes', JSON.stringify(recipes));
+
+    return { error: "" };
+  } catch (error) {
+    return { error };
+  }
 }
 
 const validateAndTranformRecipe = (recipe) => {
