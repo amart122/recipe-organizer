@@ -14,6 +14,22 @@ export const unitsToDisplay = {
   kg: 'kilogram',
 };
 
+export const unitsToAbbreviation = {
+  "tablespoon": "tbsp",
+  "teaspoon": "tsp",
+  "fluid ounce": "flOz",
+  "cup": "cup",
+  "pint": "pt",
+  "quart": "qt",
+  "gallon": "gal",
+  "milliliter": "ml",
+  "liter": "l",
+  "ounce": "oz",
+  "pound": "lb",
+  "gram": "g",
+  "kilogram": "kg",
+};
+
 const conversionRates = {
   tsp: {
     tbsp: 1 / 3,
