@@ -73,13 +73,17 @@ export const tranformImportedRecipe = (recipe) => {
 
 export const addImportedRecipe = (recipe, ingredients) => {
   try {
+    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
     const allIngredients = JSON.parse(localStorage.getItem('ingredients')) || [];
     const newIngredients = allIngredients.concat(ingredients);
-    localStorage.setItem('ingredients', JSON.stringify(newIngredients));
-
-    const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+    
+    if(recipes.find(_recipe => _recipe.name === recipe.name)) {
+      throw new Error('Recipe already exists.');
+    }
+      
     recipes.push(recipe);
     localStorage.setItem('recipes', JSON.stringify(recipes));
+    localStorage.setItem('ingredients', JSON.stringify(newIngredients));
 
     return { error: "" };
   } catch (error) {
