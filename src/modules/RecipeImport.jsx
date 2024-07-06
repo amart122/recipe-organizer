@@ -4,7 +4,6 @@ export const importRecipe = async (url) => {
   const { recipe } = await fetchRecipe(url);
 
   return new Promise((resolve, reject) => {
-    debugger
     const [ newRecipe, newIngredients ] = tranformImportedRecipe(recipe);
     const { error } = addImportedRecipe(newRecipe, newIngredients);
 
