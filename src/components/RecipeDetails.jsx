@@ -52,7 +52,7 @@ const RecipeDetails = ({ recipeId }) => {
           return (
             <div key={ index }>
               <p>
-                { ingredient.quantity } {unitsToDisplay[ingredient.unit] + (ingredient.quantity > 1 ? "s" : null)} - { recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name }
+                { ingredient.quantity } {unitsToDisplay[ingredient.unit] + (ingredient.quantity > 1 ? "s" : "")} - { recipeIngrediets.find( _ingredient => _ingredient.id === ingredient.id).name }
               </p>
             </div>
           );
