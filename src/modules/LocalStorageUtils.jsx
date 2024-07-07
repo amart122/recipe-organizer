@@ -68,6 +68,12 @@ export const tranformImportedRecipe = (recipe) => {
   // Remove empty instruction lines
   recipe.instructions = recipe.instructions.filter(instruction => instruction.length > 0)
   
+  if(recipe.servingSize.match(/\d+/g).length) {
+    recipe.servingSize = recipe.servingSize.match(/\d+/g)[0];
+  } else {
+    recipe.servingSize = "N/A";
+  }
+
   return [recipe, newIngredients];
 }
 
@@ -97,13 +103,6 @@ const validateAndTranformRecipe = (recipe) => {
   }
   const ingredientValidation = validateRecipeIngredients(recipe.recipeIngrediets);
   if(ingredientValidation.errors) { return ingredientValidation };
-
-
-  if(recipe.servingSize.match(/\d+/g).length) {
-    const recipeServingSize = recipe.servingSize.match(/\d+/g)[0];
-  } else {
-    const recipeServingSize = "N/A";
-  }
 
   const _newRecipe = {
     id: recipe.id || generateId(),

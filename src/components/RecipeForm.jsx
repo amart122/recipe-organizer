@@ -6,6 +6,7 @@ import NewIngredientInput from './NewIngredientInput';
 import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
 import { unitsToDisplay } from '../modules/UnitConverter';
+import { useNavigate } from 'react-router-dom';
 
 function RecipeForm({ recipe }) {
   const [ingredients, setIngredients] = useLoadIngredients();
@@ -20,6 +21,7 @@ function RecipeForm({ recipe }) {
   const [newIngredientSelect, setNewIngredientSelect] = useState(false);
   const { setModal } = useContext(ModalContext);
   const { addRecipe } = useContext(RecipeContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +37,8 @@ function RecipeForm({ recipe }) {
     setRecipeIngrediets([]);
     setMealType('')
     setInstructions([]);
-    setModal({ showModal: false, currentModal: null })
+    setModal({ showModal: false, currentModal: null });
+    navigate(`/recipe/${recipe.id}`);
   };
   
   const handleSelectChange = (e) => {
