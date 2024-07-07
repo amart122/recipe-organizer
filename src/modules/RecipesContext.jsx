@@ -15,10 +15,9 @@ export const RecipeProvider = ({ children }) => {
     setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
   };
 
-  const filterRecipes = (filter) => {
+  const filterRecipes = (filter, isReload) => {
     setCurrentFilter(filter)
-    setRecipes(JSON.parse(localStorage.getItem('recipes')) || [])
-    let _filteredRecipes = recipes;
+    let _filteredRecipes = isReload !== undefined && isReload ? JSON.parse(localStorage.getItem('recipes')) : [...recipes];
 
     if (filter?.text) {
       _filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(filter.text.toLowerCase()));
@@ -53,6 +52,10 @@ export const RecipeProvider = ({ children }) => {
     return [..._filteredRecipes];
   };
 
+  const reloadFilters = () => {
+    filterRecipes(currentFilter, true);
+  }
+
   const sortRecipes = (sort) => {
     let _sortedRecipes = [...filteredRecipes];
     const _ascending = sort.substr(0,1) === '+';
@@ -77,7 +80,7 @@ export const RecipeProvider = ({ children }) => {
   }
 
   return (
-    <RecipeContext.Provider value={{ recipes, filteredRecipes, sortRecipes, addRecipe, removeRecipe, filterRecipes, currentFilter }}>
+    <RecipeContext.Provider value={{ recipes, filteredRecipes, reloadFilters, sortRecipes, addRecipe, removeRecipe, filterRecipes, currentFilter }}>
       {children}
     </RecipeContext.Provider>
   );

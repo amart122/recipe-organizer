@@ -15,7 +15,7 @@ export const importRecipe = async (url) => {
       reject(importError)
     }
 
-    resolve({ importedId: newRecipe.id })
+    resolve({ recipe: newRecipe })
   })
 }
 
