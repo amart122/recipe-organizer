@@ -1,5 +1,5 @@
 export const unitsToDisplay = {
-  tbps: 'tablespoon',
+  tbsp: 'tablespoon',
   tsp: 'teaspoon',
   flOz: 'fluid ounce',
   cup: 'cup',
