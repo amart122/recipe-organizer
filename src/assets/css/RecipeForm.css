@@ -7,10 +7,6 @@ ol li.grid {
   height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 2 + var(--pico-border-width) * 2);
 }
 
-[type=button].delete-ingredient {
-  margin-bottom: -5px !important;
-}
-
 .delete-instruction, .delete-ingredient {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;

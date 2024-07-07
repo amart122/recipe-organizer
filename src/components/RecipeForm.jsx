@@ -150,15 +150,19 @@ function RecipeForm({ recipe }) {
         {newIngredientSelect && <NewIngredientInput handleNewIngredientClick={handleNewIngredientClick} hideInput={() => setNewIngredientSelect(false)}/>}
         
         <ul className="ingredient-list">
+          <li className="grid">
+            <span>Ingredient</span>
+            <span>Quantity</span>
+            <span>Unit</span>
+          </li>
+          <br />
           {recipeIngrediets.map(ingredient => (
             <li key={ingredient.id} className='grid'>
               <span>{ingredients.find(_ingredient => _ingredient.id === ingredient.id)?.name}</span>
               <div>
-                <label htmlFor="quantity">Quantity:</label>
                 <input type="number" id="quantity" name="quantity" value={ingredient.quantity ? ingredient.quantity : 0} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'quantity', value: target.value})} />
               </div>
               <div>
-                <label htmlFor="unit">Unit:</label>
                 <select name="unit" id="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})}>
                   {Object.entries(unitsToDisplay).map(unit => (
                     <option key={unit[0]} value={unit[0]}>{unit[1]}</option> 
