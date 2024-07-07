@@ -1,7 +1,7 @@
 .recipe-list-item {
   border-radius: 16px;
   overflow: hidden;
-  min-height: 170px;
+  min-height: 150px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -19,7 +19,7 @@
 }
 
 .list-item-content header {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   margin-bottom: 8px;
 }
 

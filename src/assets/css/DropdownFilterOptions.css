@@ -27,4 +27,5 @@ fieldset .options input {
 fieldset.collapsed .options {
   max-height: 250px;
   padding-top: 3px;
+  overflow-y: auto;
 }

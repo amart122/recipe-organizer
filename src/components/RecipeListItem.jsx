@@ -19,7 +19,6 @@ function RecipeListItem({ recipe }) {
             <div className="list">{recipe.ingredients.length}</div>
           </div>
         </div>
-        <footer>{recipe.description}</footer>
       </Link>
     </article>
   );
