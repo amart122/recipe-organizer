@@ -28,6 +28,7 @@ export const unitsToAbbreviation = {
   "pound": "lb",
   "gram": "g",
   "kilogram": "kg",
+  "cubic centimetre": "ml",
 };
 
 const conversionRates = {

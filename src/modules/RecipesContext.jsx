@@ -17,6 +17,7 @@ export const RecipeProvider = ({ children }) => {
 
   const filterRecipes = (filter) => {
     setCurrentFilter(filter)
+    setRecipes(JSON.parse(localStorage.getItem('recipes')) || [])
     let _filteredRecipes = recipes;
 
     if (filter?.text) {
