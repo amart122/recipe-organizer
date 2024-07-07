@@ -26,15 +26,18 @@ body, .main-container {
 /* PicoCSS Overrides */
 [data-theme=light], :root:not([data-theme=dark]) {
   --pico-primary: #111111 !important;
+  --pico-primary-rgb: 17, 17, 17 !important;
   --pico-primary-hover: #29273f !important;
   --pico-primary-background: var(--pico-primary) !important;
   --pico-primary-hover-background: #29273f !important;
   --pico-primary-hover-border: #000 !important;
   --pico-primary-inverse: #f0f0f0 !important;
+  --pico-primary-inverse-rgb: 240, 240, 240 !important;
 }
 
 [data-theme=dark], :root:not([data-theme=light]) {
   --pico-primary: #f0f0f0 !important;
+  --pico-primary-rgb: 240, 240, 240 !important;
   --pico-primary-hover: #f0f0f0 !important;
   --pico-background-color: #111111 !important;
   --pico-card-background-color: #111111 !important;
@@ -42,6 +45,7 @@ body, .main-container {
   --pico-primary-background: var(--pico-primary) !important;
   --pico-primary-hover-background: #adabab !important;
   --pico-primary-inverse: #111111 !important;
+  --pico-primary-inverse-rgb: 17, 17, 17 !important;
   --pico-primary-hover-border: #111111 !important;
 }
 
