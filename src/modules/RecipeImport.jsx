@@ -1,14 +1,18 @@
 import { addImportedRecipe, tranformImportedRecipe } from '../modules/LocalStorageUtils';
 
 export const importRecipe = async (url) => {
-  const { recipe } = await fetchRecipe(url);
+  const { recipe, error } = await fetchRecipe(url);
+
+  if(error) {
+    return Promise.reject(error)
+  }
 
   return new Promise((resolve, reject) => {
     const [ newRecipe, newIngredients ] = tranformImportedRecipe(recipe);
-    const { error } = addImportedRecipe(newRecipe, newIngredients);
+    const { importError } = addImportedRecipe(newRecipe, newIngredients);
 
-    if(error) {
-      reject(error)
+    if(importError) {
+      reject(importError)
     }
 
     resolve({ importedId: newRecipe.id })
@@ -21,7 +25,7 @@ const fetchRecipe = async (url) => {
       .then(response => {
         if(!response.ok) {
           reject(response.json())
-        } else { 
+        } else {
           resolve(response.json())
         }
       })
