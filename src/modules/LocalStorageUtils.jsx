@@ -98,6 +98,13 @@ const validateAndTranformRecipe = (recipe) => {
   const ingredientValidation = validateRecipeIngredients(recipe.recipeIngrediets);
   if(ingredientValidation.errors) { return ingredientValidation };
 
+
+  if(recipe.servingSize.match(/\d+/g).length) {
+    const recipeServingSize = recipe.servingSize.match(/\d+/g)[0];
+  } else {
+    const recipeServingSize = "N/A";
+  }
+
   const _newRecipe = {
     id: recipe.id || generateId(),
     name: recipe.name,
