@@ -18,7 +18,7 @@ const RecipeDetails = ({ recipeId }) => {
     const confirmDeletion = window.confirm("Are you sure you want to delete this recipe?");
     if (confirmDeletion) {
       deleteRecipe(recipe.id);
-      navigate("/")
+      navigate("/home")
     }
   }
 
