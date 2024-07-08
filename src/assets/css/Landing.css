@@ -1,0 +1,80 @@
+header {
+  background: var(--pico-primary-inverse);
+  color: var(--pico-primary);
+  padding: 20px 0;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li a {
+  color: var(--primar);
+  text-decoration: none;
+}
+
+.hero {
+  padding: 100px 20px;
+  background-image: url(../images/landing-sr.jpg);
+  color: var(--pico-primary);
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.hero h1 {
+  margin: 0 0 20px;
+  font-size: 48px;
+}
+
+.hero p {
+  margin: 0 0 30px;
+  font-size: 24px;
+  color: var(--pico-primary) !important;
+}
+
+.try-it {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#features {
+  background: var(--pico-primary-inverse);
+}
+
+#features .feature {
+  margin: 20px 0;
+}
+
+footer {
+  background: var(--pico-primary-inverse);
+  color: var(--pico-primary-color);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.btn {
+  font-size: 1.5rem;
+}

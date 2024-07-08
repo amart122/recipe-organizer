@@ -1,16 +1,18 @@
 import './App.css'
 import '@picocss/pico/css/pico.min.css';
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Recipe from './pages/Recipe';
+import Landing from './pages/Landing';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
 import ModalContainer from './components/ModalContainer';
 
-function App() {
+function App({ location }) {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const appLocation = useLocation();
 
   useEffect(() => {
     document.getElementsByTagName('html')[0].dataset.theme = theme;
@@ -26,11 +28,13 @@ function App() {
     <RecipeProvider>
       <ModalProvider>
         <main className='main-container container'>
-          <Navbar toggleTheme={toggleTheme} theme={theme} />
+          
+          {appLocation.pathname !== '/' &&  <Navbar toggleTheme={toggleTheme} theme={theme} />}
 
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/home' element={<Home />} />
             <Route path='/recipe/:id' element={<Recipe />} />
+            <Route path='/' element={<Landing />} />
           </Routes>
 
           <ModalContainer />
@@ -40,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
