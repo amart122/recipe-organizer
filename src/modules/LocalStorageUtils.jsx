@@ -91,9 +91,9 @@ export const addImportedRecipe = (recipe, ingredients) => {
     localStorage.setItem('recipes', JSON.stringify(recipes));
     localStorage.setItem('ingredients', JSON.stringify(newIngredients));
 
-    return { error: "" };
+    return { importError: "" };
   } catch (error) {
-    return { error };
+    return { importError: error };
   }
 }
 
