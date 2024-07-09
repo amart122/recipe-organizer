@@ -35,7 +35,7 @@ function ImportModal() {
       <h1>Import Recipe</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="url">URL:</label>
-        <input type="text" id="url" name="url" value={url} onChange={(e) => setUrl(e.target.value)} autoComplete=''/>
+        <input type="text" id="url" name="url" value={url} onChange={(e) => setUrl(e.target.value)} autoComplete='off'/>
         <button type="submit">Submit</button>
       </form>
       {showSpinner && <FullpageSpinner/>}
