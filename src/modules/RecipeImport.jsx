@@ -1,4 +1,5 @@
 import { addImportedRecipe, tranformImportedRecipe } from '../modules/LocalStorageUtils';
+import { env } from meta;
 
 export const importRecipe = async (url) => {
   const { recipe, error } = await fetchRecipe(url);
@@ -21,7 +22,7 @@ export const importRecipe = async (url) => {
 
 const fetchRecipe = async (url) => {
   return new Promise((resolve, reject) => {
-    fetch(`http://localhost:5000/api/import-recipe?url=${url}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/import-recipe?url=${url}`)
       .then(response => {
         if(!response.ok) {
           reject(response.json())
