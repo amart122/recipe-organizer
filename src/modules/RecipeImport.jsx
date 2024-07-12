@@ -1,5 +1,4 @@
 import { addImportedRecipe, tranformImportedRecipe } from '../modules/LocalStorageUtils';
-import { env } from meta;
 
 export const importRecipe = async (url) => {
   const { recipe, error } = await fetchRecipe(url);
