@@ -11,7 +11,7 @@ const Landing = () => {
         </nav>
         <div className="hero">
           <h1>Welcome to Simple Recipes</h1>
-          <p>Easily Create and Import Recipes Locally</p>
+          <p>Easily Create and Import Recipes</p>
         </div>
       </header>
       <div className='try-it'>
