@@ -1,11 +1,11 @@
 import '../assets/css/Login.css';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 import { useAuth } from '../modules/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-function Login() {
+function Signup() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function Login() {
     <>
       <header>
         <nav>
-          <div className="logo">Simple Recipes - Login </div>
+          <div className="logo">Simple Recipes - Sign Up </div>
         </nav>
         <div className="hero">
           <h1>Welcome to Simple Recipes</h1>
@@ -27,13 +27,13 @@ function Login() {
         </div>
       </header>
       <div className='login-container'>
-        <LoginForm />
+        <SignupForm />
       </div>
       <div className="signup-link">
-        <Link to="/signup" className="btn">Sign Up</Link>
+        Already have an account? <Link to="/login" className="btn">Log In</Link>
       </div>
     </>
   )
 }
 
-export default Login;
+export default Signup;
