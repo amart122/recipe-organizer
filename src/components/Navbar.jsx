@@ -2,9 +2,11 @@ import "../assets/css/Navbar.css";
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ModalContext } from '../modules/ModalContext';
+import { useAuth } from '../modules/AuthContext';
 
 function NavBar({ toggleTheme, theme }) {
   const { setModal } = useContext(ModalContext);
+  const { currentUser } = useAuth();
 
   const handleNewRecipeClick = () => {
     setModal({showModal: true, currentModal: 'new-recipe'});
@@ -40,13 +42,33 @@ function NavBar({ toggleTheme, theme }) {
           <label htmlFor="theme-toggle"></label>
         </li>
         <li>
-          <button onClick={handleNewRecipeClick}>New Recipe</button>
+          <details className="dropdown">
+            <summary>Recipes</summary>
+            <ul dir="rtl">
+              <li>
+                <a onClick={handleNewRecipeClick}>New Recipe</a>
+              </li>
+              <li>
+                <a onClick={handleImportClick}>Import Recipe</a>
+              </li>
+              <li>
+                <a onClick={handleExportClick}>Export Recipes</a>
+              </li>
+            </ul>
+          </details>
         </li>
         <li>
-          <button onClick={handleImportClick}>Import Recipe</button>
-        </li>
-        <li>
-          <button onClick={handleExportClick}>Export Recipes</button>
+          <details className="dropdown">
+            <summary>Account</summary>
+            <ul dir="rtl">
+              <li>
+                {currentUser ? 
+                  <a href="/logout">Logout</a> : 
+                  <a href="/login">Login</a>
+                }
+              </li>
+            </ul>
+          </details>
         </li>
       </ul>
     </nav>
