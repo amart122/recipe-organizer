@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { addNewRecipe, addNewIngredient, updateRecipe } from '../modules/LocalStorageUtils';
 import useLoadIngredients from '../hooks/useLoadIngredients';
 import NewIngredientInput from './NewIngredientInput';
+import Toast from "./Toast";
 import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
 import { unitsToDisplay } from '../modules/UnitConverter';
@@ -19,6 +20,7 @@ function RecipeForm({ recipe }) {
   const [mealType, setMealType] = useState(recipe?.mealType ? recipe.mealType : '');
   const [notes, setNotes] = useState(recipe?.notes ? recipe.notes : '');
   const [newIngredientSelect, setNewIngredientSelect] = useState(false);
+  const [toast, setToast] = useState({ message: '', show: false, type: '' });
   const { setModal } = useContext(ModalContext);
   const { addRecipe } = useContext(RecipeContext);
   const navigate = useNavigate();
@@ -26,7 +28,13 @@ function RecipeForm({ recipe }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { errors, recipe } = addNewRecipe({ name, recipeIngrediets, description, preptime, servingSize, notes, mealType, instructions });
-    if (errors) { return alert(errors) }
+    if (errors) {
+      return setToast({
+        message: errors,
+        show: true,
+        type: 'error'
+      })
+    }
 
     addRecipe(recipe);
     setName('');
@@ -47,7 +55,13 @@ function RecipeForm({ recipe }) {
     } else {
       const _newIngredient = parseFloat(e.target.value);
       if (_newIngredient === -1) return;
-      if(recipeIngrediets.find(ingredient => ingredient.id === _newIngredient)) return alert('Ingredient already added');
+      if(recipeIngrediets.find(ingredient => ingredient.id === _newIngredient)) {
+        return setToast({
+          message: 'Ingredient already added',
+          show: true,
+          type: 'error'
+        })
+      }
 
       const ingredient = ingredients.find(ingredient => ingredient.id === parseInt(_newIngredient));
       setRecipeIngrediets([...recipeIngrediets, {
@@ -60,7 +74,13 @@ function RecipeForm({ recipe }) {
 
   const handleNewIngredientClick = (newIngredient) => {
     const _newIngredient = addNewIngredient(newIngredient);
-    if (_newIngredient.errors) return alert(_newIngredient.errors);
+    if (_newIngredient.errors) {
+      return setToast({
+        message: _newIngredient.errors,
+        show: true,
+        type: 'error'
+      })
+    }
 
     setIngredients([...ingredients, _newIngredient]);
     setNewIngredientSelect(false)
@@ -103,7 +123,15 @@ function RecipeForm({ recipe }) {
       mealType: mealType,
       instructions: instructions
     });
-    if (errors) { return alert(errors) }
+    
+    if (errors) {
+      return setToast({
+        message: errors,
+        show: true,
+        type: 'error'
+      })
+    }
+
     setName('');
     setDescription('');
     setPreptime('');
@@ -235,6 +263,8 @@ function RecipeForm({ recipe }) {
         {recipe && <button type="button" onClick={handleRecipeUpdate}>Update Recipe</button>}
         {!recipe && <button type="submit">Add Recipe</button>}
       </div>
+
+      <Toast {...toast} setShow={setToast} />
     </form>
   );
 }
