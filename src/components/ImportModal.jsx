@@ -41,7 +41,7 @@ function ImportModal() {
         <button type="submit">Submit</button>
       </form>
       {showSpinner && <FullpageSpinner/>}
-      <Toast message={toast.message} show={toast.show} setShow={setToast} type={toast.type}/>
+      <Toast message={toast.message} show={toast.show} setToast={setToast} type={toast.type}/>
     </div>
   );
 }

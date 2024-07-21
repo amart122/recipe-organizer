@@ -264,7 +264,7 @@ function RecipeForm({ recipe }) {
         {!recipe && <button type="submit">Add Recipe</button>}
       </div>
 
-      <Toast {...toast} setShow={setToast} />
+      <Toast {...toast} setToast={setToast} />
     </form>
   );
 }

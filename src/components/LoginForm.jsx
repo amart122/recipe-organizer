@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useAuth } from '../modules/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Toast from './Toast';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [toast, setToast] = useState({ message: '', show: false });
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -15,7 +17,11 @@ function LoginForm() {
 
       navigate('/home')
     } catch (error) {
-      console.error(error);
+      setToast({
+        message: error.message,
+        show: true,
+        type: "error"
+      })
     }
   }
 
@@ -26,6 +32,7 @@ function LoginForm() {
         <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type='submit'>Login</button>
       </form>
+      <Toast {...toast} setToast={setToast}/>
     </div>
   )
 }
