@@ -1,0 +1,81 @@
+.toast {
+  position: fixed;
+  top: 10vh;
+  right: 0;
+  z-index: 101;
+
+  padding: 0.6rem 0px 0.6rem 0.6rem;
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-text);
+  border-radius: 1rem 0px 0px 1rem;
+  min-width: 200px;
+  min-height: 3ch;
+}
+
+.success {
+  color: #23933d;
+  border: 3px solid #23933d;
+}
+
+.error {
+  color: #d32f2f;
+  border: 3px solid #d32f2f;
+}
+
+.info {
+  color: #1976d2;
+  border: 3px solid #1976d2;
+}
+
+.toast p {
+  padding: 0.5rem 0px 0.5rem 0.5rem;
+  width: 100%;
+  border: 1px solid transparent;
+  border-right: none;
+  margin: 0;
+  color: inherit;
+  border-color: inherit;
+  border-radius: 0.8rem 0px 0px 0.8rem;
+  min-width: 200px;
+  min-height: 3ch;
+}
+
+.toast > p > button {
+  background-color: transparent;
+  border: 1px solid transparent !important;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.toast > p > button:hover {
+  border-color: inherit !important;
+}
+
+.toast.out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.toast.in {
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

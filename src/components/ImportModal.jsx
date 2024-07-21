@@ -2,12 +2,14 @@ import React, { useState, useContext } from 'react';
 import { importRecipe } from '../modules/RecipeImport';
 import { useNavigate } from 'react-router-dom';
 import FullpageSpinner from './FullpageSpinner';
+import Toast from './Toast';
 import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
 
 function ImportModal() {
   const [url, setUrl] = useState('');
   const [showSpinner, setShowSpinner] = useState(false);
+  const [toast, setToast] = useState({ message: '', show: false });
   const { setModal } = useContext(ModalContext);
   const { addRecipe, reloadFilters } = useContext(RecipeContext);
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ function ImportModal() {
         navigate('/recipe/' + recipe.id);
       })
       .catch( (error) => {
-        alert(error)
+        setToast({ message: error.message, show: true, type: "error" });
       })
       .finally(() => {
         setShowSpinner(false)
@@ -39,6 +41,7 @@ function ImportModal() {
         <button type="submit">Submit</button>
       </form>
       {showSpinner && <FullpageSpinner/>}
+      <Toast message={toast.message} show={toast.show} setShow={setToast} type={toast.type}/>
     </div>
   );
 }
