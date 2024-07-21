@@ -15,7 +15,7 @@ export const Toast = ({ message, show, setShow, type }) => {
       }
 
       return () => clearTimeout(timer);
-    }, 30000);
+    }, 3000);
   })
 
   return (
