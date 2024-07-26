@@ -32,6 +32,15 @@ export const syncLocalStorage = async (idToken) => {
   }
 }
 
+export const deleteRecipeApi = async (idToken, recipeId) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/api/storage/recipes/${recipeId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `${idToken}`
+    }
+  });
+}
+
 const addRecipes = async (idToken, recipes) => {
   console.log(recipes);
   const response = await fetch(`${import.meta.env.VITE_API_URL}/api/storage/recipes`, {
