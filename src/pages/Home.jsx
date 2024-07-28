@@ -1,4 +1,5 @@
 import "../assets/css/Home.css";
+import { useContext } from "react";
 import SideBarFilter from '../components/SideBarFilter';
 import RecipesContainer from '../components/RecipesContainer'
 import useLoadIngredients from '../hooks/useLoadIngredients';
@@ -6,12 +7,14 @@ import { useEffect, useState } from "react";
 import { syncLocalStorage } from "../modules/ApiUtils";
 import Toast from "../components/Toast";
 import { useAuth } from "../modules/AuthContext";
+import { RecipeContext } from "../modules/RecipesContext";
 
 function Home() {
   const [ingredients] = useLoadIngredients();
   const [synced, setSynced] = useState(false);
   const [toast, setToast] = useState({ message: '', type: '', show: false });
   const { currentUser } = useAuth();
+  const { reloadFilters } = useContext(RecipeContext);
 
   useEffect(() => {
     if(synced || !currentUser) return
@@ -24,6 +27,8 @@ function Home() {
       } else {
         setToast({ message: "Unable to Sync Recipes", type: 'error', show: true });
       }
+
+      reloadFilters();
     }
 
     currentUser.getIdToken(true).then((idToken) => {
