@@ -170,8 +170,8 @@ function RecipeForm({ recipe }) {
         <select id="ingredient-select" name="ingredient-select" value={-1} onChange={handleSelectChange} >
           <option disabled="disabled" value={-1}></option>
           <option value={0} >Add new ingredient</option>
-          {ingredients.map(ingredient => (
-            <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
+          {ingredients.map((ingredient, idx) => (
+            <option key={ingredient.id+idx} value={ingredient.id}>{ingredient.name}</option>
           ))}
         </select>
         
@@ -184,8 +184,8 @@ function RecipeForm({ recipe }) {
             <span>Unit</span>
           </li>
           <br />
-          {recipeIngrediets.map(ingredient => (
-            <li key={ingredient.id} className='grid'>
+          {recipeIngrediets.map((ingredient, idx) => (
+            <li key={ingredient.id+idx} className='grid'>
               <span>{ingredients.find(_ingredient => _ingredient.id === ingredient.id)?.name}</span>
               <div>
                 <input type="number" id="quantity" name="quantity" value={ingredient.quantity ? ingredient.quantity : 0} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'quantity', value: target.value})} />
@@ -193,7 +193,7 @@ function RecipeForm({ recipe }) {
               <div>
                 <select name="unit" id="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})}>
                   {Object.entries(unitsToDisplay).map(unit => (
-                    <option key={unit[0]} value={unit[0]}>{unit[1]}</option> 
+                    <option key={unit[0]+unit[1]} value={unit[0]}>{unit[1]}</option> 
                   ))}
                 </select>
               </div>
