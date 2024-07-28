@@ -1,10 +1,10 @@
 export const syncLocalStorage = async (idToken) => {
-  const localIngredients = JSON.parse(localStorage.getItem('ingredients'));
+  const localIngredients = JSON.parse(localStorage.getItem('ingredients')) || [];
   const apiIngredients = await getIngredients(idToken);
-  const localRecipes = JSON.parse(localStorage.getItem('recipes'));
+  const localRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
   const apiRecipes = await getRecipes(idToken);
 
-  if([localIngredients, apiIngredients, localRecipes, apiRecipes].includes(null)) {
+  if([apiIngredients, apiRecipes].includes(null)) {
     return false
   }
 
