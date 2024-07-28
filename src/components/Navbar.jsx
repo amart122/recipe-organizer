@@ -61,6 +61,11 @@ function NavBar({ toggleTheme, theme }) {
           <details className="dropdown">
             <summary>Account</summary>
             <ul dir="rtl">
+              {currentUser && 
+              <li>
+                <span>{currentUser.email}</span>
+              </li>
+              }
               <li>
                 {currentUser ? 
                   <a href="/logout">Logout</a> : 
