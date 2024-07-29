@@ -68,8 +68,8 @@ function NavBar({ toggleTheme, theme }) {
               }
               <li>
                 {currentUser ? 
-                  <a href="/logout">Logout</a> : 
-                  <a href="/login">Login</a>
+                  <Link to="/signout">Sign Out</Link> : 
+                  <Link to="/login">Sign In</Link>
                 }
               </li>
             </ul>

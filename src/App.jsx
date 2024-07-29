@@ -8,6 +8,7 @@ import Recipe from './pages/Recipe';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Signout from './pages/Signout';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
 import ModalContainer from './components/ModalContainer';
@@ -41,6 +42,7 @@ function App() {
               <Route path='/recipe/:id' element={<Recipe />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path='/signout' element={<Signout />} />
             </Routes>
 
             <ModalContainer />

@@ -59,7 +59,7 @@ export const syncLocalStorage = async (idToken) => {
   }
 }
 
-export const updateSynced = (idToken) => {
+export const updateSynced = (idToken=null) => {
   const newSynced = new Date();
   localStorage.setItem('lastSynced', newSynced);
 
@@ -98,7 +98,6 @@ const getSynced = async (idToken) => {
 }
 
 const addRecipes = async (idToken, recipes) => {
-  console.log(recipes);
   const response = await fetch(`${import.meta.env.VITE_API_URL}/api/storage/recipes`, {
     method: 'POST',
     headers: {
