@@ -1,4 +1,11 @@
 export const syncLocalStorage = async (idToken) => {
+  const localSync = localStorage.getItem('lastSynced');
+  const apiSynced = await getSynced(idToken);
+
+  if(localSync && new Date(apiSynced).valueOf() === new Date(localSync).valueOf()) {
+    return true
+  }
+
   const localIngredients = JSON.parse(localStorage.getItem('ingredients')) || [];
   const apiIngredients = await getIngredients(idToken);
   const localRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
@@ -9,6 +16,7 @@ export const syncLocalStorage = async (idToken) => {
   }
 
   try {
+    // Ingredients are always synced regardless of the last sync date
     if(localIngredients.length > apiIngredients.length) {
       const newIngredients = localIngredients.filter(ingredient => !apiIngredients.some(apiIngredient => apiIngredient.id === ingredient.id));
       await addIngredients(idToken, newIngredients);
@@ -17,12 +25,31 @@ export const syncLocalStorage = async (idToken) => {
       localStorage.setItem('ingredients', JSON.stringify([...localIngredients, ...newIngredients]));
     }
 
-    if(localRecipes.length > apiRecipes.length) {
-      const newRecipes = localRecipes.filter(recipe => !apiRecipes.some(apiRecipe => apiRecipe.id === recipe.id));
-      await addRecipes(idToken, newRecipes);
-    } else if(localRecipes.length < apiRecipes.length) {
-      const newRecipes = apiRecipes.filter(recipe => !localRecipes.some(localRecipe => localRecipe.id === recipe.id));
-      localStorage.setItem('recipes', JSON.stringify([...localRecipes, ...newRecipes]));
+    // Recipes are only synced if the last sync date is newer than the last synced date
+    if(new Date(localSync) > new Date(apiSynced)) {
+      const newApiRecipes = localRecipes.filter(recipe => !apiRecipes.some(apiRecipe => apiRecipe.id === recipe.id));
+      if(newApiRecipes.length) {
+        await addRecipes(idToken, newApiRecipes);
+      }
+
+      const recipesToDelete = apiRecipes.filter(recipe => !localRecipes.some(localRecipe => localRecipe.id === recipe.id));
+      if(recipesToDelete.length) {
+        await Promise.all(recipesToDelete.map(recipe => deleteRecipeApi(idToken, recipe.id)));
+      }
+
+      updateSynced(idToken);
+    } else {
+      const newLocalRecipes = apiRecipes.filter(recipe => !localRecipes.some(localRecipe => localRecipe.id === recipe.id));
+      if(newLocalRecipes.length) {
+        localStorage.setItem('recipes', JSON.stringify([...localRecipes, ...newLocalRecipes]));
+      }
+
+      const recipesToDelete = localRecipes.filter(recipe => !apiRecipes.some(apiRecipe => apiRecipe.id === recipe.id));
+      if(recipesToDelete.length) {
+        localStorage.setItem('recipes', JSON.stringify(localRecipes.filter(recipe => !recipesToDelete.some(deleteRecipe => deleteRecipe.id === recipe.id))))
+      }
+
+      localStorage.setItem('lastSynced', new Date(apiSynced));
     }
 
     return true
@@ -32,13 +59,42 @@ export const syncLocalStorage = async (idToken) => {
   }
 }
 
+export const updateSynced = (idToken) => {
+  const newSynced = new Date();
+  localStorage.setItem('lastSynced', newSynced);
+
+  fetch(`${import.meta.env.VITE_API_URL}/api/user/sync`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `${idToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ lastSynced: newSynced })
+  });
+}
+
 export const deleteRecipeApi = async (idToken, recipeId) => {
   return fetch(`${import.meta.env.VITE_API_URL}/api/storage/recipes/${recipeId}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `${idToken}`
     }
-  });
+  }).then(() => updateSynced(idToken))
+}
+
+const getSynced = async (idToken) => {
+  return await fetch(`${import.meta.env.VITE_API_URL}/api/user/sync`, {
+      headers: {
+        'Authorization': `${idToken}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      return data.lastSynced;
+    })
+    .catch(error => {
+      return null;
+    });
 }
 
 const addRecipes = async (idToken, recipes) => {
