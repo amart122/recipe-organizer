@@ -10,6 +10,7 @@ import { unitsToDisplay } from '../modules/UnitConverter';
 import { deleteRecipeApi } from '../modules/ApiUtils';
 import { useAuth } from '../modules/AuthContext';
 import { RecipeContext } from '../modules/RecipesContext';
+import { updateSynced } from '../modules/ApiUtils';
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useLoadRecipe(recipeId);
@@ -21,16 +22,27 @@ const RecipeDetails = ({ recipeId }) => {
 
   const openConfirmDeletion = () => {
     const confirmDeletion = window.confirm("Are you sure you want to delete this recipe?");
-    if (confirmDeletion) {
+    if (!confirmDeletion) {
+      return
+    }
+
+    deleteRecipe(recipe.id);
+
+    if (currentUser) {
       currentUser.getIdToken(true).then((idToken) => {
-        deleteRecipe(recipe.id);
         deleteRecipeApi(idToken, recipe.id)
         .then(() => {
+          updateSynced()
           reloadFilters();
           navigate("/home")
         })
       })
+    } else {
+      updateSynced()
+      reloadFilters();
+      navigate("/home")
     }
+
   }
 
   const openEditModal = () => {
