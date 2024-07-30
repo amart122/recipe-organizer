@@ -8,6 +8,7 @@ import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
 import { unitsToDisplay } from '../modules/UnitConverter';
 import { useNavigate } from 'react-router-dom';
+import { updateSynced } from "../modules/ApiUtils";
 
 function RecipeForm({ recipe }) {
   const [ingredients, setIngredients] = useLoadIngredients();
@@ -46,6 +47,7 @@ function RecipeForm({ recipe }) {
     setMealType('')
     setInstructions([]);
     setModal({ showModal: false, currentModal: null });
+    updateSynced()
     navigate(`/recipe/${recipe.id}`);
   };
   

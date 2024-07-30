@@ -54,7 +54,7 @@ export const syncLocalStorage = async (idToken) => {
 }
 
 export const updateSynced = (idToken=null) => {
-  const newSynced = new Date();
+  const newSynced = new Date().toISOString();
   localStorage.setItem('lastSynced', newSynced);
 
   fetch(`${import.meta.env.VITE_API_URL}/api/user/sync`, {
