@@ -31,12 +31,6 @@ export const syncLocalStorage = async (idToken) => {
       if(newApiRecipes.length) {
         await addRecipes(idToken, newApiRecipes);
       }
-
-      const recipesToDelete = apiRecipes.filter(recipe => !localRecipes.some(localRecipe => localRecipe.id === recipe.id));
-      if(recipesToDelete.length) {
-        await Promise.all(recipesToDelete.map(recipe => deleteRecipeApi(idToken, recipe.id)));
-      }
-
       updateSynced(idToken);
     } else {
       const newLocalRecipes = apiRecipes.filter(recipe => !localRecipes.some(localRecipe => localRecipe.id === recipe.id));
