@@ -34,7 +34,7 @@ function App() {
         <ModalProvider>
           <main className='main-container container'>
             
-            {!['/', '/login', '/signup'].includes(appLocation.pathname) &&  <Navbar toggleTheme={toggleTheme} theme={theme} />}
+            {!['/', '/login', '/signup', '/signout'].includes(appLocation.pathname) &&  <Navbar toggleTheme={toggleTheme} theme={theme} />}
 
             <Routes>
               <Route path='/' element={<Landing />} />
