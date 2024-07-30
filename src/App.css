@@ -58,3 +58,7 @@ nav li [role=button], nav li [type=button], nav li button, nav li input:not([typ
   height: var(--h) !important;
   min-height: 30px !important;
 }
+
+details.dropdown summary+ul li a {
+  cursor: pointer !important;
+}

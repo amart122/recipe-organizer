@@ -6,11 +6,15 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Recipe from './pages/Recipe';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Signout from './pages/Signout';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
 import ModalContainer from './components/ModalContainer';
+import { AuthProvider } from './modules/AuthContext.jsx';
 
-function App({ location }) {
+function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const appLocation = useLocation();
 
@@ -25,22 +29,27 @@ function App({ location }) {
   }
 
   return (
-    <RecipeProvider>
-      <ModalProvider>
-        <main className='main-container container'>
-          
-          {appLocation.pathname !== '/' &&  <Navbar toggleTheme={toggleTheme} theme={theme} />}
+    <AuthProvider>
+      <RecipeProvider>
+        <ModalProvider>
+          <main className='main-container container'>
+            
+            {!['/', '/login', '/signup'].includes(appLocation.pathname) &&  <Navbar toggleTheme={toggleTheme} theme={theme} />}
 
-          <Routes>
-            <Route path='/home' element={<Home />} />
-            <Route path='/recipe/:id' element={<Recipe />} />
-            <Route path='/' element={<Landing />} />
-          </Routes>
+            <Routes>
+              <Route path='/' element={<Landing />} />
+              <Route path='/home' element={<Home />} />
+              <Route path='/recipe/:id' element={<Recipe />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/signout' element={<Signout />} />
+            </Routes>
 
-          <ModalContainer />
-        </main>
-      </ModalProvider>
-    </RecipeProvider>
+            <ModalContainer />
+          </main>
+        </ModalProvider>
+      </RecipeProvider>
+    </AuthProvider>
   )
 }
 

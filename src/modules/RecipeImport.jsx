@@ -1,4 +1,5 @@
 import { addImportedRecipe, tranformImportedRecipe } from '../modules/LocalStorageUtils';
+import { updateSynced } from '../modules/ApiUtils';
 
 export const importRecipe = async (url) => {
   const { recipe, error } = await fetchRecipe(url);
@@ -15,6 +16,7 @@ export const importRecipe = async (url) => {
       reject(importError)
     }
 
+    updateSynced();
     resolve({ recipe: newRecipe })
   })
 }

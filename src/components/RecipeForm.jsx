@@ -3,10 +3,12 @@ import React, { useState, useContext } from 'react';
 import { addNewRecipe, addNewIngredient, updateRecipe } from '../modules/LocalStorageUtils';
 import useLoadIngredients from '../hooks/useLoadIngredients';
 import NewIngredientInput from './NewIngredientInput';
+import Toast from "./Toast";
 import { ModalContext } from '../modules/ModalContext';
 import { RecipeContext } from '../modules/RecipesContext';
 import { unitsToDisplay } from '../modules/UnitConverter';
 import { useNavigate } from 'react-router-dom';
+import { updateSynced } from "../modules/ApiUtils";
 
 function RecipeForm({ recipe }) {
   const [ingredients, setIngredients] = useLoadIngredients();
@@ -19,6 +21,7 @@ function RecipeForm({ recipe }) {
   const [mealType, setMealType] = useState(recipe?.mealType ? recipe.mealType : '');
   const [notes, setNotes] = useState(recipe?.notes ? recipe.notes : '');
   const [newIngredientSelect, setNewIngredientSelect] = useState(false);
+  const [toast, setToast] = useState({ message: '', show: false, type: '' });
   const { setModal } = useContext(ModalContext);
   const { addRecipe } = useContext(RecipeContext);
   const navigate = useNavigate();
@@ -26,7 +29,13 @@ function RecipeForm({ recipe }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { errors, recipe } = addNewRecipe({ name, recipeIngrediets, description, preptime, servingSize, notes, mealType, instructions });
-    if (errors) { return alert(errors) }
+    if (errors) {
+      return setToast({
+        message: errors,
+        show: true,
+        type: 'error'
+      })
+    }
 
     addRecipe(recipe);
     setName('');
@@ -38,6 +47,7 @@ function RecipeForm({ recipe }) {
     setMealType('')
     setInstructions([]);
     setModal({ showModal: false, currentModal: null });
+    updateSynced()
     navigate(`/recipe/${recipe.id}`);
   };
   
@@ -47,7 +57,13 @@ function RecipeForm({ recipe }) {
     } else {
       const _newIngredient = parseFloat(e.target.value);
       if (_newIngredient === -1) return;
-      if(recipeIngrediets.find(ingredient => ingredient.id === _newIngredient)) return alert('Ingredient already added');
+      if(recipeIngrediets.find(ingredient => ingredient.id === _newIngredient)) {
+        return setToast({
+          message: 'Ingredient already added',
+          show: true,
+          type: 'error'
+        })
+      }
 
       const ingredient = ingredients.find(ingredient => ingredient.id === parseInt(_newIngredient));
       setRecipeIngrediets([...recipeIngrediets, {
@@ -60,7 +76,13 @@ function RecipeForm({ recipe }) {
 
   const handleNewIngredientClick = (newIngredient) => {
     const _newIngredient = addNewIngredient(newIngredient);
-    if (_newIngredient.errors) return alert(_newIngredient.errors);
+    if (_newIngredient.errors) {
+      return setToast({
+        message: _newIngredient.errors,
+        show: true,
+        type: 'error'
+      })
+    }
 
     setIngredients([...ingredients, _newIngredient]);
     setNewIngredientSelect(false)
@@ -103,7 +125,15 @@ function RecipeForm({ recipe }) {
       mealType: mealType,
       instructions: instructions
     });
-    if (errors) { return alert(errors) }
+    
+    if (errors) {
+      return setToast({
+        message: errors,
+        show: true,
+        type: 'error'
+      })
+    }
+
     setName('');
     setDescription('');
     setPreptime('');
@@ -142,8 +172,8 @@ function RecipeForm({ recipe }) {
         <select id="ingredient-select" name="ingredient-select" value={-1} onChange={handleSelectChange} >
           <option disabled="disabled" value={-1}></option>
           <option value={0} >Add new ingredient</option>
-          {ingredients.map(ingredient => (
-            <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
+          {ingredients.map((ingredient, idx) => (
+            <option key={ingredient.id+idx} value={ingredient.id}>{ingredient.name}</option>
           ))}
         </select>
         
@@ -156,8 +186,8 @@ function RecipeForm({ recipe }) {
             <span>Unit</span>
           </li>
           <br />
-          {recipeIngrediets.map(ingredient => (
-            <li key={ingredient.id} className='grid'>
+          {recipeIngrediets.map((ingredient, idx) => (
+            <li key={ingredient.id+idx} className='grid'>
               <span>{ingredients.find(_ingredient => _ingredient.id === ingredient.id)?.name}</span>
               <div>
                 <input type="number" id="quantity" name="quantity" value={ingredient.quantity ? ingredient.quantity : 0} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'quantity', value: target.value})} />
@@ -165,7 +195,7 @@ function RecipeForm({ recipe }) {
               <div>
                 <select name="unit" id="unit" value={ingredient.unit ? ingredient.unit : ''} onChange={({target}) => handleIngredientUpdate(ingredient.id, { updateType: 'unit', value: target.value})}>
                   {Object.entries(unitsToDisplay).map(unit => (
-                    <option key={unit[0]} value={unit[0]}>{unit[1]}</option> 
+                    <option key={unit[0]+unit[1]} value={unit[0]}>{unit[1]}</option> 
                   ))}
                 </select>
               </div>
@@ -235,6 +265,8 @@ function RecipeForm({ recipe }) {
         {recipe && <button type="button" onClick={handleRecipeUpdate}>Update Recipe</button>}
         {!recipe && <button type="submit">Add Recipe</button>}
       </div>
+
+      <Toast {...toast} setToast={setToast} />
     </form>
   );
 }

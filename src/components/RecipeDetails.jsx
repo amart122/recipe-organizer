@@ -7,19 +7,42 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext } from '../modules/ModalContext';
 import { preptimeFormatCard } from '../helpers/RecipeHelper.js'
 import { unitsToDisplay } from '../modules/UnitConverter';
+import { deleteRecipeApi } from '../modules/ApiUtils';
+import { useAuth } from '../modules/AuthContext';
+import { RecipeContext } from '../modules/RecipesContext';
+import { updateSynced } from '../modules/ApiUtils';
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useLoadRecipe(recipeId);
   const [recipeIngrediets] = useLoadIngredients();
   const navigate = useNavigate();
   const { setModal } = useContext(ModalContext);
+  const { currentUser } = useAuth();
+  const { reloadFilters } = useContext(RecipeContext);
 
   const openConfirmDeletion = () => {
     const confirmDeletion = window.confirm("Are you sure you want to delete this recipe?");
-    if (confirmDeletion) {
-      deleteRecipe(recipe.id);
+    if (!confirmDeletion) {
+      return
+    }
+
+    deleteRecipe(recipe.id);
+
+    if (currentUser) {
+      currentUser.getIdToken(true).then((idToken) => {
+        deleteRecipeApi(idToken, recipe.id)
+        .then(() => {
+          updateSynced()
+          reloadFilters();
+          navigate("/home")
+        })
+      })
+    } else {
+      updateSynced()
+      reloadFilters();
       navigate("/home")
     }
+
   }
 
   const openEditModal = () => {
