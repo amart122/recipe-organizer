@@ -12,7 +12,7 @@ import Signout from './pages/Signout';
 import { RecipeProvider } from './modules/RecipesContext.jsx';
 import { ModalProvider } from './modules/ModalContext';
 import ModalContainer from './components/ModalContainer';
-import { AuthProvider } from './modules/AuthContext.jsx';
+import { AuthProvider } from './modules/AuthContext';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
