@@ -18,7 +18,8 @@ export const syncLocalStorage = async (idToken) => {
   try {
     // Ingredients are always synced regardless of the last sync date
     if(localIngredients.length > apiIngredients.length) {
-      const newIngredients = localIngredients.filter(ingredient => !apiIngredients.some(apiIngredient => apiIngredient.id === ingredient.id));
+      const localIds = new Set(localIngredients.map(ingredient => ingredient.id));
+      const newIngredients = apiIngredients.filter(ingredient => !localIds.has(ingredient.id));
       await addIngredients(idToken, newIngredients);
     } else if (localIngredients.length < apiIngredients.length) {
       const newIngredients = apiIngredients.filter(ingredient => !localIngredients.some(localIngredient => localIngredient.id === ingredient.id));
